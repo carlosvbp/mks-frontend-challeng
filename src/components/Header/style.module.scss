@@ -1,0 +1,127 @@
+.header {
+    display: flex;
+    padding: 20px 12px;
+
+    font-family: var(--font-primary);
+
+    background: var(--color-grey-0);
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        width: 100%;
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+
+            h1 {
+                color: var(--color-white);
+                font-weight: var(--title-weight);
+                font-size: var(--logo-size);
+
+                span{
+                    color: var(--color-grey-100);
+                    font-weight: var(--hover-weight);
+                    font-size: var(--span-size);
+                }
+            }
+        }
+
+            .cart {
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+                align-items: center;
+                max-width: 220px;
+
+                button {
+                    color: var(--color-grey-200);
+                    display: flex;
+                    width: 35px;
+                    height: 40px;
+                    position: absolute;
+                    align-items: end;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: var(--color-primary);
+                        color: var(--color-white);
+                        border-radius: 7px;
+                        background: var(--green-2, var(--color-primary));
+
+
+                        width: 20px;
+                        height: 25px;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                    }
+                }
+            }
+
+            img {
+                width: 150px;
+            }
+
+            form {
+                display: flex;
+                align-items: center;
+
+                border-radius: 8px;
+                border: 2px solid var(--grey-100, var(--color-grey-100));
+                background: var(--color-white);
+
+                width: 100%;
+                max-width: 382px;
+                height: 60px;
+                padding: 0 10px;
+
+                input {
+                    width: 100%;
+                    font-weight: var(--hover-weight);
+                }
+
+                button {
+                    background: var(--color-primary);
+                    border-radius: 8px;
+                    border: 2px solid var(--color-primary);
+                    color: var(--color-white);
+
+                    width: 60px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 382px) {
+        .header {
+            padding: 20px 10%;
+        }
+
+    }
+
+    @media screen and (min-width: 750px) {
+        .header {
+            div {
+                flex-direction: row;
+
+
+                .title {
+                    justify-content: space-between;
+
+                    div {
+                        width: 31px;
+                    }
+                }
+            }
+        }
+
+    }
