@@ -1,0 +1,21 @@
+.content {
+    display: flex;
+    margin: 20px 12px;
+
+    gap: 20px;
+    overflow-x: scroll;
+}
+
+@media screen and (min-width: 382px) {
+    .content {
+        padding: 20px 10%;
+    }
+}
+
+@media screen and (min-width: 1250px) {
+    .content {
+        gap: 25px;
+        overflow-x: hidden;
+        flex-wrap: wrap;
+    }
+}
