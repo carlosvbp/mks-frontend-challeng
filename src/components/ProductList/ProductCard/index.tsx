@@ -1,8 +1,13 @@
 import { useContext } from "react"
 import { ProductContext } from "../../../providers/Context"
 import styles from "./style.module.scss"
+import { Product } from "../../../interfaces/products.interface"
 
-export const ProductCard = (product: any) => {
+interface ProductCardProps {
+    product: Product;
+}
+
+export const ProductCard = ({product}: ProductCardProps) => {
     const { addCart } = useContext(ProductContext)
     return (
         <li className={styles.card}>

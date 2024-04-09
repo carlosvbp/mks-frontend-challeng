@@ -1,13 +1,17 @@
-import { createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { productApi } from "../services/api";
 import { toast } from "react-toastify";
 import { Product } from "../interfaces/products.interface";
 
+interface ProductProviderProps {
+    children: ReactNode
+}
+
 export interface ProductContextValues {
-    cartList:  Product[] | null
+    cartList: Product[] | null
     setSearch: React.Dispatch<React.SetStateAction<string>>
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    productsFilter: never[]
+    productsFilter: Product[]
     addCart: (addingcart: Product) => void
     removeCart: (cartId: number) => void
     isOpen: boolean
@@ -15,7 +19,7 @@ export interface ProductContextValues {
 
 export const ProductContext = createContext<ProductContextValues>({} as ProductContextValues)
 
-export const ProductProvider = () => {
+export const ProductProvider = ({children}: ProductProviderProps) => {
     const localStorageCartList = localStorage.getItem("@CARTLIST")
 
     const [productList, setProductList] = useState([]);
@@ -30,6 +34,7 @@ export const ProductProvider = () => {
                 try {
                     const { data } = await productApi.get("/products?page=1&rows=15&sortBy=id&orderBy=DESC");
                     setProductList(data.products)
+                    console.log(data)
                 } catch (error) {
                     console.log(error)
                 }
@@ -62,6 +67,7 @@ export const ProductProvider = () => {
 
     const productsFilter = productList.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
 
+
     return (
         <>
             <ProductContext.Provider value={
@@ -75,8 +81,8 @@ export const ProductProvider = () => {
                     isOpen
                 }
             }>
+                {children}
             </ProductContext.Provider>
         </>
     )
-
 }

@@ -1,12 +1,16 @@
 import { DashboardPage } from "./pages/DashboardPage"
-import {ToastContainer} from "react-toastify"
+import { ToastContainer } from "react-toastify"
+import { ProductProvider } from "./providers/Context"
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
   return (
     <>
-      <DashboardPage />
-      <ToastContainer autoClose={4*1000}/>
+      <ProductProvider>
+        <DashboardPage />
+        <ToastContainer autoClose={4 * 1000} />
+      </ProductProvider>
     </>
   )
 }

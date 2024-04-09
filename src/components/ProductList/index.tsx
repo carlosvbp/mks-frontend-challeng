@@ -6,12 +6,14 @@ import { ProductCard } from "./ProductCard";
 
 export const ProductList = () => {
     const { productsFilter } = useContext(ProductContext)
+    
     return (
         <ul className={styles.content}>
-            {productsFilter.map((product: Product) => (
-                <ProductCard key={product.id} product={product}
-                />
-            ))}
+            {productsFilter.length > 0 ? (
+                productsFilter.map((product: Product) => (
+                    <ProductCard key={product.id} product={product} />
+                ))
+            ) : null}
         </ul>
     );
 };
