@@ -8,7 +8,7 @@ interface ProductProviderProps {
 }
 
 export interface ProductContextValues {
-    cartList: Product[] | null
+    cartList: Product[] | null 
     setSearch: React.Dispatch<React.SetStateAction<string>>
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     productsFilter: Product[]
@@ -34,7 +34,6 @@ export const ProductProvider = ({children}: ProductProviderProps) => {
                 try {
                     const { data } = await productApi.get("/products?page=1&rows=15&sortBy=id&orderBy=DESC");
                     setProductList(data.products)
-                    console.log(data)
                 } catch (error) {
                     console.log(error)
                 }
@@ -51,7 +50,7 @@ export const ProductProvider = ({children}: ProductProviderProps) => {
     }, [cartList])
 
     const addCart = (addingcart: Product) => {
-        if (!cartList.some((cart: Product) => cart.id !== addingcart.id)) {
+        if (!cartList.some((cart: Product) => cart.id === addingcart.id)) {
             setCartList([...cartList, addingcart]);
             toast.success("Produto adicionado no carrinho com sucesso!");
         } else {
@@ -62,7 +61,6 @@ export const ProductProvider = ({children}: ProductProviderProps) => {
     const removeCart = (cartId: number) => {
         const newCartList = cartList.filter((cart: Product) => cart.id !== cartId);
         setCartList(newCartList);
-        toast.success("Produto removido do carrinho com sucesso!");
     }
 
     const productsFilter = productList.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
