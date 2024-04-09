@@ -5,4 +5,5 @@ export interface Product {
     description: string
     price: number
     photo: string
+    count: number
 }
