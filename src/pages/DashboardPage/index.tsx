@@ -4,6 +4,7 @@ import { Header } from "../../components/Header"
 import styles from "./style.module.scss"
 import { ProductList } from "../../components/ProductList"
 import { ProductContext } from "../../providers/Context"
+import { Footer } from "../../components/Footer"
 
 export const DashboardPage = () => {
     const { isOpen } = useContext(ProductContext)
@@ -15,6 +16,7 @@ export const DashboardPage = () => {
                 {
                     isOpen ? < CartModal /> : null
                 }
+                <Footer/>
             </main>
         </>
     )
