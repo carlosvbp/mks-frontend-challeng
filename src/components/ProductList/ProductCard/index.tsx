@@ -17,7 +17,7 @@ export const ProductCard = ({ product, addCart }: ProductCardProps,) => {
                 <div>
                     <div className={styles.subTitle}>
                         <h3>{product.name}</h3>
-                        <span className={styles.price}>{product.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
+                        <span className={styles.price}>{Number(product.price).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
                     </div>
                     <span className={styles.category}>{product.description}</span>
                 </div>

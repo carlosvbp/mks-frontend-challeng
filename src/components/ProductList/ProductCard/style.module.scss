@@ -1,9 +1,9 @@
 .card {
     font-family: var(--font-primary);
     height: 315px;
-    width: 285px;   
+    width: 285px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    border-radius: 12px;
 
     .divImg {
         width: 100%;
@@ -14,8 +14,8 @@
         background: var(--color-white);
 
         img {
-            max-width: 100px;
-            height: 100px;
+            max-width: 150px;
+            height: 150px;
         }
     }
 
@@ -27,8 +27,9 @@
         gap: 10px;
 
         div {
-            height: 100px;
-           
+            height: 50px;
+            gap: 15px;
+
             .subTitle {
                 display: flex;
                 justify-content: space-between;
@@ -36,9 +37,29 @@
                 padding-top: 5px;
                 padding-bottom: 5px;
                 height: 30px;
-            }
-            span {
 
+                h3 {
+                    font-size: var(--topic-size);
+                    font-weight: bold;
+                }
+
+                .price {
+                    background-color: var(--color-grey-600);
+                    color: var(--color-white);
+                    font-size: var(--body-size);
+                    font-weight: var(--title-weight);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 4px;
+                    height: 26px;
+                    padding: 6px;
+                }
+            }
+
+            .category {
+                font-size: var(--hover-size);
+                font-weight: var(--hover-weight);
             }
 
         }
@@ -49,7 +70,7 @@
             align-items: end;
             width: 285px;
             top: 38px;
-            
+
             button {
                 align-items: end;
                 background: var(--color-grey-0);

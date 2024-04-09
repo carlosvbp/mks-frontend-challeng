@@ -14,9 +14,11 @@
 @media screen and (min-width: 1250px) {
     .content {
         gap: 25px;
+        margin-top: 60px;
         overflow-x: hidden;
         flex-wrap: wrap;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 }
