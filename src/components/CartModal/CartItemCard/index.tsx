@@ -9,22 +9,9 @@ interface ProductCardProps {
 }
 
 export const CartItemCard = ({ product }: ProductCardProps) => {
-   const { removeCart } = useContext(ProductContext)
+   const { removeCart, addCart, decreaseCart } = useContext(ProductContext)
 
-   /* const addProduct = () => {
-      const existingProductIndex = cartList.findIndex((item) => item.id === product.id);
-
-      if (existingProductIndex !== -1) {
-
-         const updatedCartList = [...cartList];
-         updatedCartList[existingProductIndex].count++; 
-
-         setCartList(updatedCartList);
-      } else {
-         addCart(product);
-      }
-   }; */
-
+   console.log(typeof(product.count))
    return (
       <li className={styles.card}>
          <div className={styles.product}>
@@ -32,17 +19,17 @@ export const CartItemCard = ({ product }: ProductCardProps) => {
                <img src={product.photo} alt={product.name} />
             </div>
             <h3>{product.name}</h3>
-            <div>
+            <div className={styles.count}>
                <span>Qt:</span>
-               {/* <div>
-                  <button> - </button>
-                  <h3>{product.count}</h3>
-                  <button> + </button>
-               </div> */}
+               <div className={styles.buttons}>
+                  <button className={styles.button} onClick={() => decreaseCart(product)}> - </button>
+                  <button className={styles.button}>{product.count}</button>
+                  <button className={styles.button} onClick={() => addCart(product)}> + </button>
+               </div>
             </div>
-            <h3>{Number(product.price).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</h3>
+            <h3>{Number(product.count * product.price).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</h3>
          </div>
-         <button onClick={() => removeCart(product.id)} aria-label="delete" title="Remover item">
+         <button className={styles.buttonRemove} onClick={() => removeCart(product.id)} aria-label="delete" title="Remover item">
             <MdClose size={15} />
          </button>
       </li>

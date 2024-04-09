@@ -8,7 +8,7 @@ export const Header = () => {
    const handleSearch = (event: any) => {
       setSearch(event.target.value)
    }
-
+   console.log(cartList )
    return (
       <header className={styles.header}>
          <div>
@@ -28,7 +28,7 @@ export const Header = () => {
                   placeholder=" Digitar Pesquisa"
                />
                <button type="submit">
-                  <MdSearch size={21} />
+                  <MdSearch size={21} color="black"/>
                </button>
             </form>
          </div>

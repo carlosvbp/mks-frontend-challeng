@@ -8,7 +8,7 @@ export const CartModal = () => {
     const { cartList, setIsOpen } = useContext(ProductContext)
 
    const total = cartList?.reduce((prevValue, product) => {
-      return prevValue + Number(product.price);
+      return prevValue + Number(product.price * product.count);
    }, 0);
 
    return (

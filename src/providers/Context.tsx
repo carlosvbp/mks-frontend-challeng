@@ -1,25 +1,26 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { productApi } from "../services/api";
-import { toast } from "react-toastify";
 import { Product } from "../interfaces/products.interface";
+import { toast } from "react-toastify";
 
 interface ProductProviderProps {
     children: ReactNode
 }
 
 export interface ProductContextValues {
-    cartList: Product[] | null 
+    cartList: Product[] | null
     setSearch: React.Dispatch<React.SetStateAction<string>>
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     productsFilter: Product[]
-    addCart: (addingcart: Product) => void
+    addCart: (product: Product) => void
+    decreaseCart: (product: Product) => void
     removeCart: (cartId: number) => void
     isOpen: boolean
 }
 
 export const ProductContext = createContext<ProductContextValues>({} as ProductContextValues)
 
-export const ProductProvider = ({children}: ProductProviderProps) => {
+export const ProductProvider = ({ children }: ProductProviderProps) => {
     const localStorageCartList = localStorage.getItem("@CARTLIST")
 
     const [productList, setProductList] = useState([]);
@@ -49,12 +50,41 @@ export const ProductProvider = ({children}: ProductProviderProps) => {
         localStorage.setItem("@CARTLIST", JSON.stringify(cartList))
     }, [cartList])
 
-    const addCart = (addingcart: Product) => {
-        if (!cartList.some((cart: Product) => cart.id === addingcart.id)) {
-            setCartList([...cartList, addingcart]);
-            toast.success("Produto adicionado no carrinho com sucesso!");
+    const addCart = (product: Product) => {
+        const exist: Product | undefined = cartList.find(
+            (element: Product) => element.id === product.id
+        )
+        toast.success("Produto adicionado no carrinho!")
+        if (exist) {
+            setCartList(
+                cartList.map((element: Product) =>
+                    element.id === product.id
+                        ? { ...exist, count: exist.count + 1 }
+                        : element)
+            )
+        }
+        else {
+            setCartList([...cartList, { ...product, count: 1 }])
+        }
+    }
+
+    const decreaseCart = (product: Product) => {
+        const exist = cartList.find(
+            (element: Product) => element.id === product.id
+        ) as Product
+        if (exist.count === 1) {
+            setCartList(
+                cartList.filter((element: Product) => element.id !== product.id
+                )
+            )
         } else {
-            toast.warning("Ops, produto já foi adicionado no carrinho!");
+            setCartList(
+                cartList.map((element: Product) =>
+                    element.id === product.id
+                        ? { ...exist, count: exist.count - 1 }
+                        : element
+                )
+            )
         }
     }
 
@@ -75,6 +105,7 @@ export const ProductProvider = ({children}: ProductProviderProps) => {
                     setIsOpen,
                     productsFilter,
                     addCart,
+                    decreaseCart,
                     removeCart,
                     isOpen
                 }
