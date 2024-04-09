@@ -14,13 +14,17 @@ export const ProductCard = ({ product, addCart }: ProductCardProps,) => {
                 <img src={product.photo} alt={product.name} />
             </div>
             <div>
-                <div className={styles.subTitle}>
-                    <h3>{product.name}</h3>
-                    <span className={styles.price}>{product.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
+                <div>
+                    <div className={styles.subTitle}>
+                        <h3>{product.name}</h3>
+                        <span className={styles.price}>{product.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</span>
+                    </div>
+                    <span className={styles.category}>{product.description}</span>
                 </div>
-                <span className={styles.category}>{product.description}</span>
+                <div className={styles.divButton}>
+                    <button onClick={() => addCart(product)}>Comprar</button>
+                </div>
             </div>
-            <button onClick={() => addCart(product)}>Comprar</button>
         </li>
     )
 }

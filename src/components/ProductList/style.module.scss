@@ -1,7 +1,6 @@
 .content {
     display: flex;
     margin: 20px 12px;
-
     gap: 20px;
     overflow-x: scroll;
 }
@@ -17,5 +16,7 @@
         gap: 25px;
         overflow-x: hidden;
         flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
     }
 }
