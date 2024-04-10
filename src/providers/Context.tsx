@@ -30,7 +30,6 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
             return data;
         }
     })
-    console.log(productList)
 
     const [cartList, setCartList] = useState(
         localStorageCartList ? JSON.parse(localStorageCartList) : []);
