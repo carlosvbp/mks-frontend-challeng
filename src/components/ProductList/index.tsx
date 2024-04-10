@@ -9,7 +9,7 @@ export const ProductList = () => {
     
     return (
         <ul className={styles.content}>
-            {productsFilter.length > 0 ? (
+            {productsFilter?.length > 0 ? (
                 productsFilter.map((product: Product) => (
                     <ProductCard key={product.id} product={product}
                     addCart={addCart} />

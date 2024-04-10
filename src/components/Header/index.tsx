@@ -8,7 +8,7 @@ export const Header = () => {
    const handleSearch = (event: any) => {
       setSearch(event.target.value)
    }
-   console.log(cartList )
+   
    return (
       <header className={styles.header}>
          <div>

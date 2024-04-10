@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { productApi } from "../services/api";
 import { Product } from "../interfaces/products.interface";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 interface ProductProviderProps {
     children: ReactNode
@@ -23,32 +24,22 @@ export const ProductContext = createContext<ProductContextValues>({} as ProductC
 export const ProductProvider = ({ children }: ProductProviderProps) => {
     const localStorageCartList = localStorage.getItem("@CARTLIST")
 
-    const [productList, setProductList] = useState([]);
+    const { data: productList, isLoading } = useQuery({
+        queryKey: ["products"], queryFn: async () => {
+            const { data } = await productApi.get("/products?page=1&rows=15&sortBy=id&orderBy=DESC");
+            return data;
+        }
+    })
+
     const [cartList, setCartList] = useState(
         localStorageCartList ? JSON.parse(localStorageCartList) : []);
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("")
 
     useEffect(() => {
-        const timeOut = setTimeout(() => {
-            const getProduct = async () => {
-                try {
-                    const { data } = await productApi.get("/products?page=1&rows=15&sortBy=id&orderBy=DESC");
-                    setProductList(data.products)
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-            getProduct()
-        })
-        return () => {
-            clearTimeout(timeOut)
-        }
-    }, [])
-
-    useEffect(() => {
         localStorage.setItem("@CARTLIST", JSON.stringify(cartList))
     }, [cartList])
+
 
     const addCart = (product: Product) => {
         const exist: Product | undefined = cartList.find(
@@ -93,25 +84,31 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
         setCartList(newCartList);
     }
 
-    const productsFilter = productList.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
+    const productsFilter = productList?.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
 
 
     return (
         <>
-            <ProductContext.Provider value={
-                {
-                    cartList,
-                    setSearch,
-                    setIsOpen,
-                    productsFilter,
-                    addCart,
-                    decreaseCart,
-                    removeCart,
-                    isOpen
-                }
-            }>
-                {children}
-            </ProductContext.Provider>
+            {
+                isLoading ?
+                    <div>Carregando...</div> :
+                    (
+                        <ProductContext.Provider value={
+                            {
+                                cartList,
+                                setSearch,
+                                setIsOpen,
+                                productsFilter,
+                                addCart,
+                                decreaseCart,
+                                removeCart,
+                                isOpen
+                            }
+                        }>
+                            {children}
+                        </ProductContext.Provider>
+                    )
+            }
         </>
     )
 }
