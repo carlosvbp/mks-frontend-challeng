@@ -30,6 +30,7 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
             return data;
         }
     })
+    console.log(productList)
 
     const [cartList, setCartList] = useState(
         localStorageCartList ? JSON.parse(localStorageCartList) : []);
@@ -83,8 +84,8 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
         const newCartList = cartList.filter((cart: Product) => cart.id !== cartId);
         setCartList(newCartList);
     }
-
-    const productsFilter = productList?.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
+    
+    const productsFilter = productList?.products?.filter((product: Product) => product.name.toUpperCase().includes(search.toUpperCase()))
 
 
     return (
