@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 interface ProductProviderProps {
     children: ReactNode
-}
+}   
 
 export interface ProductContextValues {
     cartList: Product[] | null
@@ -17,14 +17,14 @@ export interface ProductContextValues {
     decreaseCart: (product: Product) => void
     removeCart: (cartId: number) => void
     isOpen: boolean
-}
+}   
 
 export const ProductContext = createContext<ProductContextValues>({} as ProductContextValues)
 
 export const ProductProvider = ({ children }: ProductProviderProps) => {
     const localStorageCartList = localStorage.getItem("@CARTLIST")
 
-    const { data: productList, isLoading } = useQuery({
+    const { data: productList, isLoading } = useQuery({ 
         queryKey: ["products"], queryFn: async () => {
             const { data } = await productApi.get("/products?page=1&rows=15&sortBy=id&orderBy=DESC");
             return data;
